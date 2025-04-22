@@ -21,17 +21,11 @@ export default function CTASection() {
             </div>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <div className="flex flex-col sm:flex-row gap-4 mt-6">
+            <div className="flex justify-center mt-6">
               <Button size="lg" className="gradient-bg hover:opacity-90 enhanced-card">
-                Start Your Free Trial <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline" className="border-border/60 hover:bg-secondary enhanced-card">
-                Schedule a Demo
+                Get Started <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
-          </FadeIn>
-          <FadeIn delay={0.3}>
-            <p className="text-sm text-muted-foreground mt-4">Try our 14-day free trial today.</p>
           </FadeIn>
         </div>
       </div>

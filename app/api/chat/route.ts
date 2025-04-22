@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { StreamingTextResponse, OpenAIStream } from 'ai';
+import { OpenAIStream, StreamingTextResponse } from 'ai/server';
 
 // Create an OpenAI API client (that's edge-friendly!)
 const openai = new OpenAI({

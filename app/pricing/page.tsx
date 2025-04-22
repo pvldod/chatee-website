@@ -1,12 +1,44 @@
-import { Check } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+"use client"
+
+import { loadStripe } from "@stripe/stripe-js"
+import PricingCard from "@/components/pricing-card"
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 export default function PricingPage() {
+  const handleSubscribe = async (planId: string) => {
+    try {
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ plan: planId }),
+      })
+
+      const { sessionId, error } = await response.json()
+      
+      if (error) {
+        console.error("Error:", error)
+        return
+      }
+
+      const stripe = await stripePromise
+      if (stripe) {
+        const { error } = await stripe.redirectToCheckout({ sessionId })
+        if (error) {
+          console.error("Error:", error)
+        }
+      }
+    } catch (error) {
+      console.error("Error:", error)
+    }
+  }
+
   const plans = [
     {
       name: "Starter",
-      price: "$29",
+      price: "$12.99",
       description: "Perfect for small businesses just getting started",
       features: [
         "1,000 messages per month",
@@ -16,10 +48,11 @@ export default function PricingPage() {
         "Chat history (7 days)",
         "Basic analytics",
       ],
+      planId: "starter",
     },
     {
       name: "Professional",
-      price: "$99",
+      price: "$29.99",
       description: "Ideal for growing businesses with more demands",
       features: [
         "5,000 messages per month",
@@ -31,10 +64,12 @@ export default function PricingPage() {
         "Custom AI training",
         "Multilingual support",
       ],
+      planId: "professional",
+      isPopular: true,
     },
     {
       name: "Enterprise",
-      price: "Custom",
+      price: "$99.99",
       description: "For large organizations with specific requirements",
       features: [
         "Unlimited messages",
@@ -47,6 +82,7 @@ export default function PricingPage() {
         "SLA guarantees",
         "Custom features",
       ],
+      planId: "enterprise",
     },
   ]
 
@@ -57,35 +93,17 @@ export default function PricingPage() {
           Simple, Transparent Pricing
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Choose the perfect plan for your business. All plans include a 14-day free trial.
+          Choose the perfect plan for your business.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {plans.map((plan, index) => (
-          <Card key={index} className="border-purple-100 flex flex-col">
-            <CardHeader>
-              <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
-              <div className="mt-4">
-                <span className="text-4xl font-bold">{plan.price}</span>
-                {plan.price !== "Custom" && <span className="text-muted-foreground">/month</span>}
-              </div>
-              <p className="text-sm text-muted-foreground mt-2">{plan.description}</p>
-            </CardHeader>
-            <CardContent className="flex flex-col flex-grow">
-              <ul className="space-y-3 mb-8 flex-grow">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-center">
-                    <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0" />
-                    <span className="text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600">
-                Get Started
-              </Button>
-            </CardContent>
-          </Card>
+          <PricingCard
+            key={index}
+            {...plan}
+            onSubscribe={handleSubscribe}
+          />
         ))}
       </div>
     </div>

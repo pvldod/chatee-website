@@ -24,20 +24,14 @@ export default function DemoPage() {
       <div className="mt-12 text-center">
         <h2 className="text-xl font-bold mb-4">Ready to add this to your website?</h2>
         <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-          Get started with Chatee.io today and add an AI-powered chatbot to your website in minutes.
+          Get started with Chatee.io today and add an AI-powered chatbot to your website.
         </p>
-        <div className="flex justify-center gap-4">
+        <div className="flex justify-center">
           <a
             href="/#pricing"
             className="gradient-bg text-white px-4 py-2 rounded-md hover:opacity-90 transition-opacity"
           >
             View Pricing
-          </a>
-          <a
-            href="/"
-            className="bg-secondary/50 text-foreground px-4 py-2 rounded-md hover:bg-secondary transition-colors"
-          >
-            Learn More
           </a>
         </div>
       </div>

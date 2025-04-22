@@ -30,40 +30,30 @@ export default function FAQPage() {
     {
       question: "What is the system availability?",
       answer: "We guarantee 99.9% service availability. Our infrastructure is built on reliable cloud services with redundancy and automatic backup systems.",
-    },
-    {
-      question: "Do you offer a trial period?",
-      answer: "Yes, we offer a 14-day free trial with full features. During this period, you can test all features and decide if Chatee meets your needs.",
-    },
-    {
-      question: "How does technical support work?",
-      answer: "We provide different levels of support based on your plan - from email support for the basic plan to 24/7 dedicated support for enterprise clients.",
-    },
+    }
   ]
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container max-w-4xl mx-auto py-12 px-4">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">
-          Frequently Asked Questions
-        </h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Haven't found your answer? Feel free to contact us.
+        <h1 className="text-4xl font-bold mb-4">Frequently Asked Questions</h1>
+        <p className="text-muted-foreground">
+          Find answers to common questions about Chatee. Can't find what you're looking for?{" "}
+          <a href="/contact" className="text-primary hover:underline">
+            Contact our support team
+          </a>
+          .
         </p>
       </div>
 
-      <div className="max-w-3xl mx-auto">
-        <Accordion type="single" collapsible className="w-full">
-          {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger className="text-left">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent>{faq.answer}</AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
+      <Accordion type="single" collapsible className="w-full">
+        {faqs.map((faq, index) => (
+          <AccordionItem key={index} value={`item-${index}`}>
+            <AccordionTrigger>{faq.question}</AccordionTrigger>
+            <AccordionContent>{faq.answer}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
     </div>
   )
 } 

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, MessageSquare, Zap, Code } from "lucide-react"
+import Link from "next/link"
 import HeroDemo from "@/components/hero-demo"
 import FeatureSection from "@/components/feature-section"
 import PricingSection from "@/components/pricing-section"
@@ -26,15 +27,14 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button size="lg" className="gradient-bg hover:opacity-90">
-              Get Started <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button size="lg" variant="outline" className="border-border/60 hover:bg-secondary">
-              View Demo
-            </Button>
+            <Link href="/signup">
+              <Button size="lg" className="gradient-bg hover:opacity-90">
+                Get Started <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
 
-          {/* Chatbot Demo - Direct inclusion without wrappers */}
+          {/* Chatbot Demo */}
           <div className="mt-8 mb-12">
             <HeroDemo />
           </div>

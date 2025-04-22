@@ -187,68 +187,95 @@ export default function KnowledgeBaseTab() {
         <TabsContent value="websites" className="space-y-4">
           <Card className="border-purple-100">
             <CardHeader>
-              <CardTitle>Add Websites</CardTitle>
-              <CardDescription>Add URLs to websites or web pages to train your chatbot.</CardDescription>
+              <CardTitle>Přidat webové stránky</CardTitle>
+              <CardDescription>Přidejte URL adresy webových stránek nebo konkrétních stránek, ze kterých se má chatbot učit.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid gap-6">
                 <div className="grid gap-4">
                   <div className="grid grid-cols-12 gap-4">
                     <div className="col-span-9">
-                      <Label htmlFor="url">Website URL</Label>
+                      <Label htmlFor="url">URL adresa webu</Label>
                       <div className="flex mt-1">
-                        <Input id="url" placeholder="https://example.com/page" />
+                        <Input id="url" placeholder="https://vasestranka.cz/cenik" />
                       </div>
                     </div>
                     <div className="col-span-3 flex items-end">
                       <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600">
-                        <Plus className="mr-2 h-4 w-4" /> Add URL
+                        <Plus className="mr-2 h-4 w-4" /> Přidat URL
                       </Button>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <input type="checkbox" id="crawl" className="rounded border-gray-300" />
-                    <Label htmlFor="crawl">Crawl entire website (follows links within the same domain)</Label>
+                  
+                  <div className="space-y-4 border rounded-lg p-4 bg-purple-50">
+                    <div className="flex items-center space-x-2">
+                      <input type="checkbox" id="crawl" className="rounded border-gray-300" />
+                      <Label htmlFor="crawl">Procházet celý web (následuje odkazy v rámci stejné domény)</Label>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h4 className="font-medium text-sm">Pokročilá nastavení procházení:</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="max-depth">Maximální hloubka procházení</Label>
+                          <Input type="number" id="max-depth" defaultValue={3} min={1} max={10} />
+                          <p className="text-xs text-muted-foreground mt-1">Jak hluboko má bot následovat odkazy (1-10)</p>
+                        </div>
+                        <div>
+                          <Label htmlFor="excluded-paths">Vyloučené cesty</Label>
+                          <Input id="excluded-paths" placeholder="/blog/*, /admin/*" />
+                          <p className="text-xs text-muted-foreground mt-1">Cesty, které se mají přeskočit (oddělené čárkou)</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <h3 className="text-lg font-medium mb-4">Added Websites</h3>
-                  <div className="border rounded-lg">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>URL</TableHead>
-                          <TableHead>Last Crawled</TableHead>
-                          <TableHead>Status</TableHead>
-                          <TableHead className="text-right">Actions</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {websites.map((site) => (
-                          <TableRow key={site.id}>
-                            <TableCell className="font-medium">{site.url}</TableCell>
-                            <TableCell>{site.lastCrawled}</TableCell>
-                            <TableCell>
-                              <Badge
-                                variant={site.status === "Indexed" ? "default" : "outline"}
-                                className={site.status === "Indexed" ? "bg-green-500" : ""}
-                              >
+                  <div className="space-y-2">
+                    <h4 className="font-medium">Aktuálně indexované stránky</h4>
+                    <div className="border rounded-lg divide-y">
+                      {websites.map((site) => (
+                        <div key={site.id} className="p-4 flex items-center justify-between">
+                          <div className="space-y-1">
+                            <p className="font-medium text-sm">{site.url}</p>
+                            <div className="flex items-center gap-2">
+                              <Badge variant={site.status === "Indexed" ? "default" : "outline"}
+                                className={site.status === "Indexed" ? "bg-green-500" : "bg-yellow-100"}>
                                 {site.status}
                               </Badge>
-                            </TableCell>
-                            <TableCell className="text-right">
-                              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 mr-2">
-                                <RefreshCw className="h-4 w-4" />
-                              </Button>
-                              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
+                              <span className="text-xs text-muted-foreground">
+                                Naposledy indexováno: {site.lastCrawled}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="border-purple-200 text-purple-600 hover:bg-purple-50"
+                            >
+                              <RefreshCw className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-red-500 hover:text-red-600 hover:bg-red-50"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="p-4 bg-purple-50 rounded-lg">
+                    <h4 className="font-medium mb-2">Tipy pro indexování:</h4>
+                    <ul className="text-sm space-y-1 text-muted-foreground">
+                      <li>• Začněte s hlavní URL adresou, která obsahuje nejvíce relevantních informací</li>
+                      <li>• Použijte procházení celého webu pro automatické nalezení souvisejících stránek</li>
+                      <li>• Vyloučené cesty použijte pro přeskočení nepotřebných sekcí (např. blog, admin)</li>
+                      <li>• Pravidelně aktualizujte indexované stránky pro zachování aktuálnosti informací</li>
+                    </ul>
                   </div>
                 </div>
               </div>

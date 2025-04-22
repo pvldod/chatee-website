@@ -1,6 +1,5 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Facebook, Twitter, Instagram, Linkedin, Github } from "lucide-react"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -8,8 +7,8 @@ export default function Footer() {
   return (
     <footer className="w-full border-t border-border/40 bg-background py-12">
       <div className="container px-4 md:px-6">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
-          <div className="col-span-2">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
+          <div>
             <Link href="/" className="flex items-center gap-4">
               <Image
                 src="/images/chatbot-logo.png"
@@ -24,28 +23,6 @@ export default function Footer() {
               Add AI-powered chat to your website in minutes. Boost engagement, provide 24/7 support, and increase
               conversions.
             </p>
-            <div className="mt-4 flex space-x-3">
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
-                <Facebook className="h-5 w-5" />
-                <span className="sr-only">Facebook</span>
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
-                <Instagram className="h-5 w-5" />
-                <span className="sr-only">Instagram</span>
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
-                <Github className="h-5 w-5" />
-                <span className="sr-only">GitHub</span>
-              </Link>
-            </div>
           </div>
           <div>
             <h3 className="text-sm font-medium">Product</h3>
@@ -90,11 +67,6 @@ export default function Footer() {
                   API Reference
                 </Link>
               </li>
-              <li>
-                <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
-                  Blog
-                </Link>
-              </li>
             </ul>
           </div>
           <div>
@@ -103,11 +75,6 @@ export default function Footer() {
               <li>
                 <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
                   About
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
-                  Careers
                 </Link>
               </li>
               <li>

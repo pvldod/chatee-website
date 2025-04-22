@@ -28,10 +28,6 @@ export default function FAQSection() {
       answer:
         "Each pricing plan comes with a specific number of messages per month. The Starter plan includes 1,000 messages, Professional includes 5,000, and Enterprise offers unlimited messages. You can always upgrade your plan as your needs grow.",
     },
-    {
-      question: "Can I try before I buy?",
-      answer: "Yes! We offer a 14-day free trial with full access to all features.",
-    },
   ]
 
   return (
